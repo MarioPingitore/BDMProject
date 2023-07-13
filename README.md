@@ -3,4 +3,4 @@
 <h3>The project utilizes a dataset regarding the vaccination operation carried out on all the Italian territory to
 perform some data retrieval. The application is coded in Python, utilizing PySpark to have access to all the Spark 
 framework. The application performs four queries with two different syntax, and store the results on MongoDB Cloud 
-Database: execution time are calculated for each query. </t3>
+Database: execution time are calculated for each query.</t3>
