@@ -80,6 +80,7 @@ def SaveToMongoDB(maxFirstDose, maxSecondDose, maxFirstSecond):
         maxFirstDose.write.format("mongodb").mode("overwrite").option("database", "BDMProject").option("collection", "MaxFirstSecond_firstDose").save()
         maxSecondDose.write.format("mongodb").mode("overwrite").option("database", "BDMProject").option("collection", "MaxFirstSecond_secondDose").save()
         maxFirstSecond.write.format("mongodb").mode("overwrite").option("database", "BDMProject").option("collection", "MaxFirstSecond").save()
+        print("Results saved.")
     except Exception as e:
         print(traceback.format_exc())
         print(e)

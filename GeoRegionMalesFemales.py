@@ -80,10 +80,11 @@ def SaveToMongoDB(avgMales, avgFemales):
         # Write the results DataFrame to MongoDB
         avgMales.write.format("mongodb").mode("overwrite").option("database", "BDMProject").option("collection", "GeoRegionMalesFemales").save()
         avgFemales.write.format("mongodb").mode("append").option("database", "BDMProject").option("collection", "GeoRegionMalesFemales").save()
+        print("Results saved.")
     except Exception as e:
-        print(traceback.format_exc())
-        print(e)
-        print("Saving error -> Cannot save result on MongoDB")
+            print(traceback.format_exc())
+            print(e)
+            print("Saving error -> Cannot save result on MongoDB")
 
 
 def main():

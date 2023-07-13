@@ -111,7 +111,7 @@ def SaveToMongoDB(result):
     try:
         # Write the result DataFrame to MongoDB
         result.write.format("mongodb").mode("overwrite").option("database", "BDMProject").option("collection", "SupplierISTAT").save()
-
+        print("Results saved.")
     except Exception as e:
         print(traceback.format_exc())
         print(e)
