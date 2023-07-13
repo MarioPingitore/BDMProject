@@ -29,7 +29,6 @@ def LoadData(spark):
         # Load the dataset
         dataset_path = "data/italian_vaccination.csv"
         df = spark.read.csv(dataset_path, header=True, inferSchema=True)
-
         return df
     except Exception as e:
         print(traceback.format_exc())

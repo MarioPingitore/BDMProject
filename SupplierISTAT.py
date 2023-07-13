@@ -35,7 +35,9 @@ def LoadData(spark):
         print("Loading error -> Cannot load dataset")
 
 
-"""Create the query in SQL Syntax : for each supplier, identify in how main ISTAT regions  has been utilized, on how many adult (age range between 30-89) males and females, and what is the ISTAT region in which that particular supplier has been more utilized"""
+"""Create the query in SQL Syntax : for each supplier, identify in how main ISTAT regions  has been utilized, on how
+ many adult (age range between 30-89) males and females, and what is the ISTAT region in which that particular supplier 
+ has been more utilized"""
 def DefineQuery(dataDf):
     # Register the DataFrame as a temporary view
     dataDf.createOrReplaceTempView("dataset")

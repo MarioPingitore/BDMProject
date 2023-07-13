@@ -37,27 +37,30 @@ def LoadData(spark):
         print("Loading error -> Cannot load dataset")
 
 
-"""Create the query in SQL Syntax: the 100 administration date based on maximization of cumulative number of first_dose + second_dose for for very old people (age 90+) and children (0-12), along with the region in which the max record for the vaccine administration has been registered.
+"""Create the query in SQL Syntax: the top 100 administration date based on maximization of cumulative number of first_dose + second_dose  for very old people (age 90+) and children (0-12), along with the region in which the max record for the vaccine administration has been registered.
 Execute the query and calculate the execution time of the query through two sampling of time"""
 def ExecuteQuery(dataDf):
     # start the timer
     startTime = time.time()
 
-    # retrieve the top 100 of the administration_date of the max administration of first_dose for children and very old people and the region in which the record has been registered
+    # retrieve the top 100 of the administration_date of the max administration of first_dose for children and very old people
+    # and the region in which the record has been registered
     maxFirstDose = dataDf.filter((col("age_range") == "0-12") | (col("age_range") == "90+")) \
         .orderBy(col("first_dose").desc()) \
         .withColumnRenamed("region", "region_first_dose") \
         .select("administration_date", "first_dose", "region_first_dose") \
         .limit(100)
 
-    # retrieve the top 100 of the administration_date of the max administration of second_dose for children and very old people and the region in which the record has been registered
+    # retrieve the top 100 of the administration_date of the max administration of second_dose for children and very old people
+    # and the region in which the record has been registered
     maxSecondDose = dataDf.filter((col("age_range") == "0-12") | (col("age_range") == "90+")) \
         .orderBy(col("second_dose").desc()) \
         .withColumnRenamed("region", "region_second_dose") \
         .select("administration_date", "second_dose", "region_second_dose") \
         .limit(100)
 
-    # Combine the two dataframe obtained by the subqueries through a join and order based on the max cumulative value of first_dose + second_dose
+    # Combine the two dataframe obtained by the subqueries through a join and order based on the max cumulative value of
+    # first_dose + second_dose
     maxFirstSecond = maxFirstDose.join(maxSecondDose, on="administration_date", how="inner").distinct(). \
         orderBy((col("first_dose") + col("second_dose")).desc())
 

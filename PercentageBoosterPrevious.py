@@ -40,14 +40,17 @@ def LoadData(spark):
 
 
 """Create the query in SQL Syntax: Find the regions with the highest percentage of individuals who received 
-the booster dose who had a previous infection, considering only regions that have been provided with more than one supplier:"""
+the booster dose who had a previous infection, considering only regions that have been provided with more than one 
+supplier and ordered based on the percentage:"""
 def DefineQuery(dataDf):
     # Register the DataFrame as a temporary view
     dataDf.createOrReplaceTempView("dataset")
 
     # Define the query to be executed
     query = """
-        SELECT region_name, (SUM(CASE WHEN additional_booster_dose > 0 AND previous_infection > 0 THEN 1 ELSE 0 END) / SUM(CASE WHEN previous_infection > 0 THEN 1 ELSE 0 END)) * 100 AS percentage, COLLECT_LIST(DISTINCT supplier)AS suppliers
+        SELECT region_name, (SUM(CASE WHEN additional_booster_dose > 0 AND previous_infection > 0 
+        THEN 1 ELSE 0 END) / SUM(CASE WHEN previous_infection > 0 THEN 1 ELSE 0 END)) * 100 AS percentage, 
+        COLLECT_LIST(DISTINCT supplier)AS suppliers
         FROM dataset
         WHERE region IN (
             SELECT region
@@ -108,6 +111,6 @@ def main():
 
 
 if __name__ == "__main__":
-    print("Starting Elaboration Query")
+    print("Starting PercentageBoosterPrevious Query")
     main()
     print("Elaboration Query concluded")
